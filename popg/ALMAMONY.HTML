@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELMAMONY Formation Academy</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        .elmamony-card {
+            transition: transform 0.3s;
+            border-radius: 15px;
+            overflow: hidden;
+            background: linear-gradient(145deg, #f5f5f5, #ffffff);
+        }
+        .elmamony-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        #elmamony-canvas {
+            height: 400px;
+            position: relative;
+            background: linear-gradient(45deg, #1a1a1a, #2c3e50);
+        }
+        .brand-name {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #2c3e50;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        .category-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        
+        /* Add new login styles */
+        .login-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            display: none;
+        }
+
+        .login-form {
+            background: rgba(25, 31, 44, 0.8);
+            padding: 40px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .login-form h2 {
+            color: #00ffff;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+        }
+
+        .login-form input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .login-form button {
+            width: 100%;
+            padding: 12px;
+            margin: 20px 0;
+            border: none;
+            border-radius: 25px;
+            background: #00ffff;
+            color: #1a1a1a;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .login-form button:hover {
+            transform: scale(1.05);
+        }
+
+        .login-form a {
+            color: #00ffff;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        #login-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div id="elmamony-canvas"></div>
+
+<div class="container mt-5">
+    <h1 class="text-center mb-5 brand-name">ELMAMONY Formation</h1>
+    
+    <div class="row g-4">
+        <!-- Trading Formations -->
+        <div class="col-md-4">
+            <div class="elmamony-card card h-100">
+                <div class="card-body">
+                    <span class="category-badge bg-warning text-dark">Trading</span>
+                    <h5 class="card-title">Forex Trading Mastery</h5>
+                    <p class="card-text">Master the forex market with professional strategies</p>
+                    <h4 class="text-primary">$299</h4>
+                    <button class="btn btn-primary w-100">Enroll Now</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="elmamony-card card h-100">
+                <div class="card-body">
+                    <span class="category-badge bg-warning text-dark">Trading</span>
+                    <h5 class="card-title">Crypto Trading Pro</h5>
+                    <p class="card-text">Cryptocurrency trading strategies and analysis</p>
+                    <h4 class="text-primary">$249</h4>
+                    <button class="btn btn-primary w-100">Enroll Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cybersecurity Formations -->
+        <div class="col-md-4">
+            <div class="elmamony-card card h-100">
+                <div class="card-body">
+                    <span class="category-badge bg-danger text-white">Cybersecurity</span>
+                    <h5 class="card-title">Ethical Hacking</h5>
+                    <p class="card-text">Learn penetration testing and security analysis</p>
+                    <h4 class="text-primary">$399</h4>
+                    <button class="btn btn-primary w-100">Enroll Now</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="elmamony-card card h-100">
+                <div class="card-body">
+                    <span class="category-badge bg-danger text-white">Cybersecurity</span>
+                    <h5 class="card-title">Network Security</h5>
+                    <p class="card-text">Advanced network protection and monitoring</p>
+                    <h4 class="text-primary">$349</h4>
+                    <button class="btn btn-primary w-100">Enroll Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Soft Skills Formations -->
+        <div class="col-md-4">
+            <div class="elmamony-card card h-100">
+                <div class="card-body">
+                    <span class="category-badge bg-success text-white">Soft Skills</span>
+                    <h5 class="card-title">Leadership Excellence</h5>
+                    <p class="card-text">Develop essential leadership and management skills</p>
+                    <h4 class="text-primary">$199</h4>
+                    <button class="btn btn-primary w-100">Enroll Now</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="elmamony-card card h-100">
+                <div class="card-body">
+                    <span class="category-badge bg-success text-white">Soft Skills</span>
+                    <h5 class="card-title">Communication Mastery</h5>
+                    <p class="card-text">Master professional communication and presentation</p>
+                    <h4 class="text-primary">$179</h4>
+                    <button class="btn btn-primary w-100">Enroll Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Login Modal -->
+<div class="login-container" id="loginModal">
+    <canvas id="login-canvas"></canvas>
+    <div class="login-form">
+        <h2>Login</h2>
+        <input type="email" placeholder="Email" required>
+        <input type="password" placeholder="Password" required>
+        <a href="#">Forgot your password?</a>
+        <button type="submit">Login</button>
+        <a href="#">Signup</a>
+    </div>
+</div>
+
+<script>
+    // ELMAMONY 3D Scene
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / 400, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, 400);
+    document.getElementById('elmamony-canvas').appendChild(renderer.domElement);
+
+    // Lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambientLight);
+    const pointLight = new THREE.PointLight(0xffffff, 1);
+    pointLight.position.set(5, 5, 5);
+    scene.add(pointLight);
+
+    // Create animated 3D objects
+    const geometry = new THREE.TorusKnotGeometry(1, 0.3, 100, 16);
+    const material = new THREE.MeshPhongMaterial({ 
+        color: 0x2c3e50,
+        specular: 0x555555,
+        shininess: 30 
+    });
+    const torusKnot = new THREE.Mesh(geometry, material);
+    scene.add(torusKnot);
+
+    camera.position.z = 5;
+
+    // Animation
+    function animate() {
+        requestAnimationFrame(animate);
+        torusKnot.rotation.x += 0.01;
+        torusKnot.rotation.y += 0.01;
+        renderer.render(scene, camera);
+    }
+    animate();
+
+    // Responsive
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / 400;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, 400);
+    });
+
+    // Add Login Animation
+    const loginScene = new THREE.Scene();
+    const loginCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const loginRenderer = new THREE.WebGLRenderer({ 
+        canvas: document.getElementById('login-canvas'),
+        alpha: true 
+    });
+    loginRenderer.setSize(window.innerWidth, window.innerHeight);
+
+    // Create particles
+    const particlesGeometry = new THREE.BufferGeometry();
+    const particlesCount = 2000;
+    const posArray = new Float32Array(particlesCount * 3);
+
+    for(let i = 0; i < particlesCount * 3; i++) {
+        posArray[i] = (Math.random() - 0.5) * 50;
+    }
+
+    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+    const particlesMaterial = new THREE.PointsMaterial({
+        size: 0.05,
+        color: '#00ffff'
+    });
+
+    const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+    loginScene.add(particlesMesh);
+
+    loginCamera.position.z = 30;
+
+    // Login Animation
+    function animateLogin() {
+        requestAnimationFrame(animateLogin);
+        particlesMesh.rotation.y += 0.001;
+        particlesMesh.rotation.x += 0.001;
+        loginRenderer.render(loginScene, loginCamera);
+    }
+    animateLogin();
+
+    // Show login modal
+    function showLogin() {
+        document.getElementById('loginModal').style.display = 'flex';
+    }
+
+    // Add click event to all "Enroll Now" buttons
+    document.querySelectorAll('.btn-primary').forEach(button => {
+        button.addEventListener('click', showLogin);
+    });
+
+    // Responsive login canvas
+    window.addEventListener('resize', () => {
+        loginCamera.aspect = window.innerWidth / window.innerHeight;
+        loginCamera.updateProjectionMatrix();
+        loginRenderer.setSize(window.innerWidth, window.innerHeight);
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

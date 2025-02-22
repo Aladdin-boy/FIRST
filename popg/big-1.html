@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELMAMONY Formation Academy</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        .elmamony-card {
+            transition: transform 0.3s;
+            border-radius: 15px;
+            overflow: hidden;
+            background: linear-gradient(145deg, #f5f5f5, #ffffff);
+        }
+        .elmamony-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        #logo3D {
+            width: 100%;
+            height: 400px;
+            margin-bottom: 2rem;
+        }
+        .brand-name {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #2c3e50;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+<!-- 3D Logo Canvas -->
+<canvas id="logo3D"></canvas>
+
+<div class="container mt-5">
+    <h1 class="text-center mb-5 brand-name">ELMAMONY Formation</h1>
+    
+    <div class="row g-4">
+        <!-- Trading -->
+        <div class="col-md-4">
+            <div class="elmamony-card card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Trading Mastery</h5>
+                    <p class="card-text">Master forex and stock trading strategies</p>
+                    <h4 class="text-primary">$299</h4>
+                    <button class="btn btn-primary w-100" onclick="enrollNow('Trading Mastery', 299)">Enroll Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cybersecurity -->
+        <div class="col-md-4">
+            <div class="elmamony-card card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Cybersecurity Expert</h5>
+                    <p class="card-text">Comprehensive cybersecurity training</p>
+                    <h4 class="text-primary">$399</h4>
+                    <button class="btn btn-primary w-100" onclick="enrollNow('Cybersecurity Expert', 399)">Enroll Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Self Skills -->
+        <div class="col-md-4">
+            <div class="elmamony-card card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Self Development</h5>
+                    <p class="card-text">Enhance your personal and professional skills</p>
+                    <h4 class="text-primary">$199</h4>
+                    <button class="btn btn-primary w-100" onclick="enrollNow('Self Development', 199)">Enroll Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Three.js 3D Logo Animation
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / 400, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({
+        canvas: document.querySelector('#logo3D'),
+        antialias: true
+    });
+    renderer.setSize(window.innerWidth, 400);
+
+    // Create 3D Text
+    const loader = new THREE.FontLoader();
+    loader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', function(font) {
+        const textGeometry = new THREE.TextGeometry('ELMAMONY', {
+            font: font,
+            size: 5,
+            height: 2,
+        });
+        
+        const textMaterial = new THREE.MeshPhongMaterial({
+            color: 0x2c3e50,
+            specular: 0x555555,
+            shininess: 30
+        });
+        
+        const textMesh = new THREE.Mesh(textGeometry, textMaterial);
+        textGeometry.center();
+        scene.add(textMesh);
+    });
+
+    // Add lights
+    const light = new THREE.DirectionalLight(0xffffff, 1);
+    light.position.set(0, 0, 10);
+    scene.add(light);
+    
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambientLight);
+
+    camera.position.z = 20;
+
+    // Animation
+    function animate() {
+        requestAnimationFrame(animate);
+        scene.rotation.y += 0.005;
+        renderer.render(scene, camera);
+    }
+    animate();
+
+    // Enrollment Function
+    function enrollNow(course, price) {
+        window.location.href = `enrollment.html?course=${encodeURIComponent(course)}&price=${price}`;
+    }
+</script>
+
+<!-- Enrollment Page (enrollment.html) -->
+<div id="enrollmentPage" style="display: none;">
+    <div class="container mt-5">
+        <h2>Enrollment Form</h2>
+        <form id="enrollmentForm">
+            <div class="mb-3">
+                <label class="form-label">Full Name</label>
+                <input type="text" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Phone</label>
+                <input type="tel" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Address</label>
+                <textarea class="form-control" rows="3" required></textarea>
+            </div>
+            
+            <div class="mb-3">
+                <h4>Payment Details</h4>
+                <div class="mb-3">
+                    <label class="form-label">Card Number</label>
+                    <input type="text" class="form-control" required>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="form-label">Expiry Date</label>
+                        <input type="text" class="form-control" placeholder="MM/YY" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">CVV</label>
+                        <input type="text" class="form-control" required>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Complete Purchase</button>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
+
+
+
